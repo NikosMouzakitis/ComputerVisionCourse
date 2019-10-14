@@ -48,7 +48,7 @@ A = np.asarray(A, dtype = bool)
 A = A.astype(int)
 plt.figure(1)
 plt.imshow(A, cmap="gray")
-plt.show()
+#plt.show()
 
 n = (int)(input("Select neigbor(4 or 8) to be used: "))
 #n = 8 #given n = 4 , still on dev.
@@ -303,46 +303,61 @@ if(n == 8): # another time traversing the array cause in 8-neigbors we missed so
                         
 print("EQ NOW AFTER NEW CODE IS")
 print(eq)
-to_remember = []
 
-for indx in range(len(eq)):
-
-    print('Equivelant labels adjustment')
-    print(eq)
-    print('L is now: ')
-    print(L)
-     
-    a = eq[indx][0]
-    b = eq[indx][1]
+if(n == 4):
+    to_remember = []
     
-    tmpval = 0
-    found_in_remember = 0
+    for indx in range(len(eq)):
     
-    for i in range(len(to_remember)):
+        print('Equivelant labels adjustment')
+        print(eq)
+        print('L is now: ')
+        print(L)
+         
+        a = eq[indx][0]
+        b = eq[indx][1]
         
-        if(a == to_remember[i][0]):
-            found_in_remember = 1
-            tmpval = to_remember[i][1]
-    
-    for i in range(rows):
-        for j in range(cols):
-            if(L[i][j] == b):
-                if(found_in_remember):
-                    print('Found in remember')
-                    print('%d to %d'%(L[i][j], tmpval))
-                    L[i][j] = tmpval
-                    print(L[i][j])
-                else:                
-                    print('%d to %d'%(L[i][j], a))
-                    L[i][j] = a
-                    print(L[i][j])
-    if(found_in_remember):
-        to_remember.append([b, tmpval])    
-    else:
-        to_remember.append([b,a])
+        tmpval = 0
+        found_in_remember = 0
+        
+        for i in range(len(to_remember)):
+            
+            if(a == to_remember[i][0]):
+                found_in_remember = 1
+                tmpval = to_remember[i][1]
+        
+        for i in range(rows):
+            for j in range(cols):
+                if(L[i][j] == b):
+                    if(found_in_remember):
+                        print('Found in remember')
+                        print('%d to %d'%(L[i][j], tmpval))
+                        L[i][j] = tmpval
+                        print(L[i][j])
+                    else:                
+                        print('%d to %d'%(L[i][j], a))
+                        L[i][j] = a
+                        print(L[i][j])
+        if(found_in_remember):
+            to_remember.append([b, tmpval])    
+        else:
+            to_remember.append([b,a])
      
 print('After processing')
 print(L)
+
+if(n == 8):
+    ## looping backwards and decrementing to get all correct
+    ## classes while backtracing to class1.
+    for i in range(len(eq), 0,-1):
+        #// we work on i-1 index each time.
+        print("change %d to %d"%(eq[i-1][0],eq[i-1][1]))
+
+        for k in range(rows):
+            for j in range(cols):
+                if(L[k][j] == eq[i-1][0]):
+                    L[k][j] = eq[i-1][1]
+
 # editing L to get incrementing labels 1 to max
 # without skipping integers, as implemented above.
 tmp = []
@@ -381,6 +396,10 @@ for k in range(len(tmp)):
                 #print('Place : %d %d'%(toadd, L[i][j]))
     
     
+    
+    
+    
+
 if(n == 4 or n == 8):
     print('Labeled image')
     print('Total labels found: %d'%(total_labels))
