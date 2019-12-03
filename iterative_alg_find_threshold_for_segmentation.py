@@ -4,10 +4,7 @@ import matplotlib.image as mpimg
 
 '''
     Mouzakitis Nikolaos TP4460 hmu
-    computer vision course.
-    implementing the algorithm for the bonus in the theory.
-    Algorithm iterates till the given desired difference between the 
-    new and old threshold values is reached.
+    
     Tested with a fingerprint image found on google.   
 '''
 desired_difference = 1
